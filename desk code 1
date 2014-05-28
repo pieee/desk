@@ -1,0 +1,90 @@
+<div id="desk-support-kb-content">
+ 
+  {% if topics_count > 0 %}
+    <div id="desk-kb-index">
+      <div class="row-fluid nomargin-bottom">
+        <h2 class="desk-index-subheader span12">
+          {{system.snippets.browse_by_topic}}
+        </h2>
+      </div>
+      
+      <div class="topicContainer row-fluid">
+      {% assign col = 0 %}
+      {%for topic in topics%}
+        {% if topic.article_count > 0 %}
+        
+          {% if current_user.customer.allow_download == 'true' %}
+          {% if topic.id == 643305 %}
+		
+            <div class="desk-topic desk-topic-{{ topic.id }}">
+              <h3>
+                <a href='{{ topic.public_articles_url }}'>{{ topic.name }}</a></h3> 
+              <ul>
+                {% for article in topic.articles limit:5 %}
+                <li>
+                  <a href='{{ article.public_url }}'>{{ article.subject_plain }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              <a href='{{ topic.public_articles_url }}' class="btn btn-small desk-topic-view-all"><span class="desk-view-text">{{system.snippets.view_all}} </span>
+                {{ topic.article_count }}
+                {{ system.snippets.article | pluralize: topic.article_count, system.snippets.articles }}
+              </a>
+            </div>
+        
+			{% endif %}
+			
+            {% elsif current_user.customer.allow_download == 'false' %}
+            {% if topic.id == 643305 %}
+			
+
+          <div class="desk-topic desk-topic-{{ topic.id }}">
+            <h3>
+              <a href='{{ topic.public_articles_url }}'>{{ topic.name }}</a></h3>
+            <ul>
+              {% for article in topic.articles limit:5 %}
+              <li>
+                <a href='{{ article.public_url }}'>{{ article.subject_plain }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            <a href='{{ topic.public_articles_url }}' class="btn btn-small desk-topic-view-all"><span class="desk-view-text">{{system.snippets.view_all}} </span>
+              {{ topic.article_count }}
+              {{ system.snippets.article | pluralize: topic.article_count, system.snippets.articles }}
+            </a>
+          </div>
+          
+          {% else %}
+
+           <div class="desk-topic desk-topic-{{ topic.id }}">
+            <h3>
+              <a href='{{ topic.public_articles_url }}'>{{ topic.name }}</a></h3>
+            <ul>
+              {% for article in topic.articles limit:5 %}
+              <li>
+                <a href='{{ article.public_url }}'>{{ article.subject_plain }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            <a href='{{ topic.public_articles_url }}' class="btn btn-small desk-topic-view-all"><span class="desk-view-text">{{system.snippets.view_all}} </span>
+              {{ topic.article_count }}
+              {{ system.snippets.article | pluralize: topic.article_count, system.snippets.articles }}
+            </a>
+          </div>
+          
+          {% endif %}
+          {% endif %}
+			
+            {% if col == 0 %}
+              <div class="coldiv1"></div>
+              {% assign col = 1 %}
+            {%else%}
+              <div class="coldiv2"></div>
+              {% assign col = 0 %}
+            {%endif%}
+        
+        {%endif%}
+      {%endfor%}
+      </div>
+    </div><!-- #desk-kb-index -->
+  {%endif%}
